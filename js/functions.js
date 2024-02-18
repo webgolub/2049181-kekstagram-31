@@ -13,22 +13,23 @@ const isPalindrome = (string) => {
 
 const extractDigits = (string) => {
   let digits = '';
-
-  if (!(typeof(string) === 'string')) {
-    string = string.toString();
-  }
+  string = String(string);
 
   for (let i = 0; i < string.length; i++) {
     const item = parseInt(string[i], 10);
 
     if (!Number.isNaN(item)) {
-      digits += item.toString();
+      digits += item;
     }
   }
 
-  return (digits.length > 0) ? parseInt(digits, 10) : NaN;
+  return parseInt(digits, 10);
+
+  // подсказали в discord академии:
+  // const number = parseInt(string.toString().replace(/[^\d]/g, ''), 10);
+  // return number;
 };
 
 checkStringLength('string', 3);
 isPalindrome('stringgnitrs');
-extractDigits(777);
+extractDigits('0text12468768дж4999');
