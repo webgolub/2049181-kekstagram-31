@@ -25,7 +25,16 @@ const DESCRIPTIONS = [
   'Красиво, не правда ли?'
 ];
 
-const NUMBER_OF_PHOTOS = 25;
+const PHOTOS_COUNT = 25;
+
+const LikesCount = {
+  MIN: 15,
+  MAX: 200
+};
+const CommentsCount = {
+  MIN: 0,
+  MAX: 30
+};
 
 const getRandomInteger = (min, max) => {
   const minNumber = Math.ceil(Math.min(min, max));
@@ -40,25 +49,26 @@ const makeGetCounter = () => {
   return () => prevId++;
 };
 
-const getCounter = makeGetCounter();
+const getPhotoId = makeGetCounter();
+
+const getCommentId = makeGetCounter();
 
 const generateComment = () => ({
-  id: getCounter(),
-  avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
+  id: getCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
 
 const generatePhoto = () => {
-  const counter = getCounter();
+  const counter = getPhotoId();
   return {
     id: counter,
     url: `photos/${counter}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(15, 200),
-    comments: Array.from({length: getRandomInteger(0, 30)}, generateComment)
+    likes: getRandomInteger(LikesCount.MIN, LikesCount.MAX),
+    comments: Array.from({length: getRandomInteger(CommentsCount.MIN, CommentsCount.MAX)}, generateComment)
   };
 };
 
-const generatedPhotos = Array.from({length: NUMBER_OF_PHOTOS}, generatePhoto);
-console.log(generatedPhotos);
+Array.from({length: PHOTOS_COUNT}, generatePhoto);
