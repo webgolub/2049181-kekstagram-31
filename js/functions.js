@@ -30,6 +30,23 @@ const extractDigits = (string) => {
   // return number;
 };
 
+const stringToDigits = (string) => string.split(':').map((item) => Number(item));
+
+const timeToMinutes = (time) => {
+  const [hours, minutes] = stringToDigits(time);
+
+  return hours * 60 + minutes;
+};
+
+const isMeetingInWorkTime = (workStart, workEnd, meetingStart, meetingMinutes) => {
+  workStart = timeToMinutes(workStart);
+  workEnd = timeToMinutes(workEnd);
+  meetingStart = timeToMinutes(meetingStart);
+
+  return meetingStart + meetingMinutes <= workEnd && meetingStart >= workStart;
+};
+
 checkStringLength('string', 3);
 isPalindrome('stringgnitrs');
 extractDigits('0text12468768дж4999');
+isMeetingInWorkTime('08:05', '17:30', '14:00', 210);
