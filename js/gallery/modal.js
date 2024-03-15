@@ -25,6 +25,7 @@ const createComment = ({avatar, message, name}) => {
 const showPictureModal = ({url, description, likes, comments}) => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  overlay.scrollTo(0, 0);
 
   img.src = url;
   caption.textContent = description;
@@ -32,9 +33,6 @@ const showPictureModal = ({url, description, likes, comments}) => {
   commentsShown.textContent = 5;
   commentsTotal.textContent = comments.length;
   commentsContainer.replaceChildren(...comments.map(createComment));
-
-  overlay.querySelector('.social__comment-count').classList.add('hidden');
-  overlay.querySelector('.comments-loader').classList.add('hidden');
 
   closeButton.addEventListener('click', onModalCloseButtonClick);
   document.addEventListener('keydown', onModalEscKeydown);

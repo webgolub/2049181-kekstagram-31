@@ -1,5 +1,6 @@
 import { createThumbnail } from './thumbnail.js';
 import { showPictureModal, hidePictureModal } from './modal.js';
+import { isEscKey } from '../util.js';
 
 const photosContainer = document.querySelector('.pictures');
 
@@ -31,7 +32,7 @@ const onModalCloseButtonClick = (evt) => {
 
 const onModalEscKeydown = (evt) => {
   evt.preventDefault();
-  if (evt.code === 'Escape') {
+  if (isEscKey(evt)) {
     hidePictureModal();
   }
 };

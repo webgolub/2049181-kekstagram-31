@@ -11,4 +11,11 @@ const makeGetCounter = () => {
   return () => prevId++;
 };
 
-export {getRandomArrayElement, getRandomInteger, makeGetCounter};
+const isEscKey = (evt) => evt.code === 'Escape';
+
+export {
+  getRandomArrayElement,
+  getRandomInteger,
+  makeGetCounter,
+  isEscKey
+};
