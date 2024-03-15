@@ -1,6 +1,6 @@
 import { generatePictures } from './data.js';
-import { renderPictures } from './pictures.js';
+import { renderThumbnails } from './gallery/gallery.js';
 
 const allPictures = generatePictures();
 
-renderPictures(allPictures);
+renderThumbnails(allPictures);
