@@ -6,10 +6,18 @@ const photosContainer = document.querySelector('.pictures');
 const renderThumbnails = (pictures) => {
   const picturesFragment = document.createDocumentFragment();
 
+  photosContainer.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture')) {
+      evt.preventDefault();
+      const picture = pictures.find(
+        (element) => element.id === Number(evt.target.dataset.id)
+      );
+      showPictureModal(picture);
+    }
+  });
+
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
-
-    thumbnail.addEventListener('click', () => showPictureModal(picture));
     picturesFragment.append(thumbnail);
   });
 
