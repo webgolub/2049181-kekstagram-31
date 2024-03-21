@@ -1,5 +1,5 @@
 import { createThumbnail } from './thumbnail.js';
-import { showPictureModal, hidePictureModal } from './modal.js';
+import { showPictureModal, hidePictureModal } from './galleryModal.js';
 import { isEscKey } from './util.js';
 
 const photosContainer = document.querySelector('.pictures');
