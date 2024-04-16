@@ -21,4 +21,6 @@ const hideUploadModal = () => {
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-export { showUploadModal, hideUploadModal };
+const isUploadModalHidden = () => uploadModal.classList.contains('hidden');
+
+export { showUploadModal, hideUploadModal, isUploadModalHidden };

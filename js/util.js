@@ -13,9 +13,14 @@ const makeGetCounter = () => {
 
 const isEscKey = (evt) => evt.code === 'Escape';
 
+const isArrayUnique = (items) => !items.some(
+  (item, index) => items.indexOf(item, index + 1) !== -1
+);
+
 export {
   getRandomArrayElement,
   getRandomInteger,
   makeGetCounter,
+  isArrayUnique,
   isEscKey
 };

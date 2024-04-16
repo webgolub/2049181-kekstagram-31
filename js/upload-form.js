@@ -1,6 +1,7 @@
-import { showUploadModal, hideUploadModal } from './uploadModal.js';
+import { showUploadModal, hideUploadModal, isUploadModalHidden } from './uploadModal.js';
 import { FormOptions } from './const.js';
 import { isEscKey } from './util.js';
+import { validate } from './validation.js';
 
 const TEXT_FIELD_NAMES = ['hashtags', 'description'];
 const form = document.querySelector('.img-upload__form');
@@ -8,7 +9,20 @@ const form = document.querySelector('.img-upload__form');
 const isNoTextFields = (evt) => !(TEXT_FIELD_NAMES.includes(evt.target.name));
 
 const formChangeHandler = () => {
-  showUploadModal();
+  if (isUploadModalHidden()) {
+    showUploadModal();
+  }
+  validate();
+};
+
+const formSubmitHandler = (evt) => {
+  // const isValid = validate();
+  evt.preventDefault();
+  // if (isValid) {
+  //   console.log('+++ valid');
+  // } else {
+  //   console.log('XXX invalid');
+  // }
 };
 
 const onModalCloseButtonClick = (evt) => {
@@ -17,8 +31,8 @@ const onModalCloseButtonClick = (evt) => {
 };
 
 const onModalEscKeydown = (evt) => {
-  evt.preventDefault();
   if (isEscKey(evt) && isNoTextFields(evt)) {
+    evt.preventDefault();
     hideUploadModal();
   }
 };
@@ -28,5 +42,6 @@ form.enctype = FormOptions.enctype;
 form.action = FormOptions.action;
 
 form.addEventListener('change', formChangeHandler);
+form.addEventListener('submit', formSubmitHandler);
 
 export { onModalCloseButtonClick, onModalEscKeydown };
