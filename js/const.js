@@ -13,4 +13,14 @@ const ValidationOptions = {
   HASHTAG_MAX_COUNT: 5
 };
 
-export { FormOptions, ValidationOptions };
+const ScaleOptions = {
+  MIN: 25,
+  MAX: 100,
+  STEP: 25
+};
+
+export {
+  FormOptions,
+  ValidationOptions,
+  ScaleOptions
+};

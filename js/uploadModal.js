@@ -20,6 +20,7 @@ const hideUploadModal = () => {
   document.body.classList.remove('modal-open');
   form.reset();
 
+  scaleButtonsContainer.removeEventListener('click', onScaleButtonClick);
   closeButton.removeEventListener('click', onModalCloseButtonClick);
   document.removeEventListener('keydown', onModalEscKeydown);
 };

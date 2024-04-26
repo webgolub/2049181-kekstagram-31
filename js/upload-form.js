@@ -18,6 +18,7 @@ const formChangeHandler = () => {
 const formSubmitHandler = (evt) => {
   // const isValid = validate();
   evt.preventDefault();
+  form.submit();
   // if (isValid) {
   //   console.log('+++ valid');
   // } else {
