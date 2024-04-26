@@ -14,23 +14,23 @@ const pristine = new Pristine(form, {
 
 const parseHashtagsInput = (value) => value !== '' ? value.trim().toLowerCase().split(' ') : [];
 
-pristine.addValidator(commentInput, (value) => value.length <= ValidationOptions.commentLength,
+pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).length <= ValidationOptions.HASHTAG_MAX_COUNT,
+  'Не больше 5 хештегов');
+
+pristine.addValidator(commentInput, (value) => value.length <= ValidationOptions.COMMENT_LENGTH,
   'Комментарий не длиннее 140 символов');
 
-pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => ValidationOptions.hashtagEndingRegExp.test(hashtag)),
+pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => ValidationOptions.HASHTAG_ENDING_REGXP.test(hashtag)),
   'Хэштеги разделяются пробелом');
 
-pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => ValidationOptions.hashtagRegExp.test(hashtag)),
+pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => ValidationOptions.HASHTAG_REGXP.test(hashtag)),
   'Хэштег начинается с # и состоит из букв и цифр');
 
-pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => hashtag.length >= ValidationOptions.hashtagLengthMin && hashtag.length <= ValidationOptions.hashtagLengthMax),
+pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).every((hashtag) => hashtag.length >= ValidationOptions.HASHTAG_LENGTH_MIN && hashtag.length <= ValidationOptions.HASHTAG_LENGTH_MAX),
   'Длинна хэштега от 1 до 19 символов после #');
 
 pristine.addValidator(hashtagInput, (value) => isArrayUnique(parseHashtagsInput(value)),
   'Хэштеги не должны повторяться');
-
-pristine.addValidator(hashtagInput, (value) => parseHashtagsInput(value).length <= ValidationOptions.hashtagMaxCount,
-  'Не больше 5 хештегов');
 
 const validate = () => pristine.validate();
 

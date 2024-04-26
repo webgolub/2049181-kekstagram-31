@@ -1,13 +1,16 @@
+import { onScaleButtonClick } from './scale.js';
 import { onModalCloseButtonClick, onModalEscKeydown } from './upload-form.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadModal = form.querySelector('.img-upload__overlay');
 const closeButton = uploadModal.querySelector('.img-upload__cancel');
+const scaleButtonsContainer = form.querySelector('.img-upload__scale');
 
 const showUploadModal = () => {
   uploadModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
+  scaleButtonsContainer.addEventListener('click', onScaleButtonClick);
   closeButton.addEventListener('click', onModalCloseButtonClick);
   document.addEventListener('keydown', onModalEscKeydown);
 };
