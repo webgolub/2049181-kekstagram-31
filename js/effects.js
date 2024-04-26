@@ -1,6 +1,7 @@
 const form = document.querySelector('.img-upload__form');
 const sliderContainer = form.querySelector('.effect-level__slider');
 const effectLevelValue = form.querySelector('.effect-level__value');
+const imagePreview = form.querySelector('.img-upload__preview img');
 
 const Effect = {
   NONE: 'none',
@@ -17,7 +18,16 @@ const SliderOptions = {
   [Effect.SEPIA]: {min: 0, max: 1, step: 0.1},
   [Effect.MARVIN]: {min: 0, max: 100, step: 1},
   [Effect.PHOBOS]: {min: 0, max: 3, step: 0.1},
-  [Effect.HEAT]:{min: 1, max: 3, step: 0.1}
+  [Effect.HEAT]: {min: 1, max: 3, step: 0.1}
+};
+
+const EffectOptions = {
+  [Effect.NONE]: () => (imagePreview.style.filter = ''),
+  [Effect.CHROME]: () => (imagePreview.style.filter = `grayscale(${effectLevelValue.value})`),
+  [Effect.SEPIA]: () => (imagePreview.style.filter = `sepia(${effectLevelValue.value})`),
+  [Effect.MARVIN]: () => (imagePreview.style.filter = `invert(${effectLevelValue.value}%)`),
+  [Effect.PHOBOS]: () => (imagePreview.style.filter = `blur(${effectLevelValue.value}px)`),
+  [Effect.HEAT]: () => (imagePreview.style.filter = `brightness(${effectLevelValue.value})`)
 };
 
 noUiSlider.create(sliderContainer, {
@@ -43,8 +53,13 @@ const createSliderOptions = ({min, max, step}) => ({
 let currentEffect = Effect.NONE;
 const slider = sliderContainer.noUiSlider;
 
+const updateImagePreview = () => {
+  EffectOptions[currentEffect]();
+};
+
 slider.on('update', () => {
   effectLevelValue.value = slider.get();
+  updateImagePreview();
 });
 
 const updateSlider = () => {
@@ -66,6 +81,7 @@ const onEffectsListClick = (evt) => {
 
 const resetEffects = () => {
   currentEffect = Effect.NONE;
+  effectLevelValue.value = 100;
   updateSlider();
 };
 
