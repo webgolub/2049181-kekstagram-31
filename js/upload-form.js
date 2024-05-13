@@ -2,6 +2,8 @@ import { showUploadModal, hideUploadModal, isUploadModalHidden } from './uploadM
 import { FormOptions } from './const.js';
 import { isEscKey } from './util.js';
 import { validate } from './validation.js';
+import { uploadData } from './server.js';
+import { showUploadErrorMessage, showUploadSuccessMessage } from './message.js';
 
 const TEXT_FIELD_NAMES = ['hashtags', 'description'];
 const form = document.querySelector('.img-upload__form');
@@ -16,14 +18,20 @@ const formChangeHandler = () => {
 };
 
 const formSubmitHandler = (evt) => {
-  // const isValid = validate();
+  const isValid = validate();
   evt.preventDefault();
-  form.submit();
-  // if (isValid) {
-  //   console.log('+++ valid');
-  // } else {
-  //   console.log('XXX invalid');
-  // }
+  if (isValid) {
+    const data = new FormData(form);
+    uploadData(
+      () => {
+        hideUploadModal();
+        showUploadSuccessMessage();
+      },
+      () => {
+        showUploadErrorMessage();
+      },
+      data);
+  }
 };
 
 const onModalCloseButtonClick = (evt) => {

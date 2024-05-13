@@ -1,15 +1,37 @@
-import { showMessage } from './message.js';
 
-const DOWNLOAD_URL = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
 
-const downloadData = async () => {
+const Url = {
+  DOWNLOAD: 'https://31.javascript.htmlacademy.pro/kekstagram/data',
+  UPLOAD: 'https://31.javascript.htmlacademy.pro/kekstagram '
+};
+
+const downloadData = async (onSuccess, onFail) => {
   try {
-    const response = await fetch(DOWNLOAD_URL);
-    const data = await response.json();
-    return data;
-  } catch {
-    showMessage('data-error');
+    const response = await fetch(Url.DOWNLOAD);
+    if (!response.ok) {
+      onFail();
+    } else {
+      const data = await response.json();
+      onSuccess(data);
+    }
+  } catch (err) {
+    onFail();
   }
 };
 
-export { downloadData };
+const uploadData = async (onSuccess, onFail, data) => {
+  try {
+    const response = await fetch(Url.UPLOAD, {
+      method: 'POST',
+      body: data
+    });
+    if (!response.ok) {
+      onFail();
+    } else {
+      onSuccess();
+    }
+  } catch (err) {
+    onFail();
+  }
+};
+export { downloadData, uploadData };
