@@ -6,7 +6,17 @@ import { uploadData } from './server.js';
 import { showUploadErrorMessage, showUploadSuccessMessage } from './message.js';
 
 const TEXT_FIELD_NAMES = ['hashtags', 'description'];
+const SubmitButtonText = {
+  BLOCKED: 'Публикую...',
+  UNBLOCKED: 'Опубликовать'
+};
 const form = document.querySelector('.img-upload__form');
+const submitButton = form.querySelector('.img-upload__submit');
+
+const handleSubmitButton = (disabledFlag, buttonText) => {
+  submitButton.textContent = buttonText;
+  submitButton.disabled = disabledFlag;
+};
 
 const isNoTextFields = (evt) => !(TEXT_FIELD_NAMES.includes(evt.target.name));
 
@@ -22,12 +32,15 @@ const formSubmitHandler = (evt) => {
   evt.preventDefault();
   if (isValid) {
     const data = new FormData(form);
+    handleSubmitButton(true, SubmitButtonText.BLOCKED);
     uploadData(
       () => {
+        handleSubmitButton(false, SubmitButtonText.UNBLOCKED);
         hideUploadModal();
         showUploadSuccessMessage();
       },
       () => {
+        handleSubmitButton(false, SubmitButtonText.UNBLOCKED);
         showUploadErrorMessage();
       },
       data);
@@ -53,4 +66,7 @@ form.action = FormOptions.ACTION;
 form.addEventListener('change', formChangeHandler);
 form.addEventListener('submit', formSubmitHandler);
 
-export { onModalCloseButtonClick, onModalEscKeydown };
+export {
+  onModalCloseButtonClick,
+  onModalEscKeydown
+};
