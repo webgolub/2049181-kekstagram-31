@@ -6,6 +6,10 @@ const photosContainer = document.querySelector('.pictures');
 
 const renderThumbnails = (pictures) => {
   const picturesFragment = document.createDocumentFragment();
+  if (photosContainer.querySelector('.picture')) {
+
+    photosContainer.querySelectorAll('.picture').forEach((picture) => picture.remove());
+  }
 
   photosContainer.addEventListener('click', (evt) => {
     if (evt.target.closest('.picture')) {

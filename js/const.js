@@ -1,4 +1,5 @@
 const DEBOUNCE_TIMEOUT = 500;
+const RANDOM_PHOTOS_COUNT = 10;
 
 const FormOptions = {
   METHOD: 'POST',
@@ -21,9 +22,17 @@ const ScaleOptions = {
   STEP: 25
 };
 
+const FilterName = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
+};
+
 export {
   DEBOUNCE_TIMEOUT,
+  RANDOM_PHOTOS_COUNT,
   FormOptions,
   ValidationOptions,
-  ScaleOptions
+  ScaleOptions,
+  FilterName
 };
