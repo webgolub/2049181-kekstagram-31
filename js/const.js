@@ -1,3 +1,5 @@
+const DEBOUNCE_TIMEOUT = 500;
+
 const FormOptions = {
   METHOD: 'POST',
   ENCTYPE: 'multipart/form-data',
@@ -20,6 +22,7 @@ const ScaleOptions = {
 };
 
 export {
+  DEBOUNCE_TIMEOUT,
   FormOptions,
   ValidationOptions,
   ScaleOptions
