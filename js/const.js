@@ -1,5 +1,6 @@
 const DEBOUNCE_TIMEOUT = 500;
 const RANDOM_PHOTOS_COUNT = 10;
+const FILE_TYPES = ['jpg', 'jpeg', 'png', 'gif'];
 
 const FormOptions = {
   METHOD: 'POST',
@@ -31,6 +32,7 @@ const FilterName = {
 export {
   DEBOUNCE_TIMEOUT,
   RANDOM_PHOTOS_COUNT,
+  FILE_TYPES,
   FormOptions,
   ValidationOptions,
   ScaleOptions,

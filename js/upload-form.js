@@ -1,5 +1,5 @@
 import { showUploadModal, hideUploadModal, isUploadModalHidden } from './uploadModal.js';
-import { FormOptions } from './const.js';
+import { FILE_TYPES, FormOptions } from './const.js';
 import { isEscKey } from './util.js';
 import { validate } from './validation.js';
 import { uploadData } from './server.js';
@@ -12,6 +12,8 @@ const SubmitButtonText = {
 };
 const form = document.querySelector('.img-upload__form');
 const submitButton = form.querySelector('.img-upload__submit');
+const imgPreview = form.querySelector('.img-upload__preview > img');
+const fileChooser = form.querySelector('.img-upload__input');
 
 const handleSubmitButton = (disabledFlag, buttonText) => {
   submitButton.textContent = buttonText;
@@ -20,10 +22,20 @@ const handleSubmitButton = (disabledFlag, buttonText) => {
 
 const isNoTextFields = (evt) => !(TEXT_FIELD_NAMES.includes(evt.target.name));
 
+const renderPicturePreview = () => {
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
+  const fileTypeMatches = FILE_TYPES.some((type) => fileName.endsWith(type));
+  if (fileTypeMatches) {
+    imgPreview.src = URL.createObjectURL(file);
+  }
+};
+
 const formChangeHandler = () => {
   if (isUploadModalHidden()) {
     showUploadModal();
   }
+  renderPicturePreview();
   validate();
 };
 
@@ -63,7 +75,7 @@ form.method = FormOptions.METHOD;
 form.enctype = FormOptions.ENCTYPE;
 form.action = FormOptions.ACTION;
 
-form.addEventListener('change', formChangeHandler);
+fileChooser.addEventListener('change', formChangeHandler);
 form.addEventListener('submit', formSubmitHandler);
 
 export {
